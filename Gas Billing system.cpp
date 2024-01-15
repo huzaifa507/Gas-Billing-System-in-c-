@@ -7,7 +7,7 @@
 #include<conio.h>
 #include <cstdlib>
 #include<sstream>
-
+#include <ctime>  
 using namespace std;
  void forget();
  int main();
@@ -73,6 +73,20 @@ void welcome()
 	
 	
 }
+//string date()
+//{
+	// time_t now = time(0); // get current date and time   
+  //  tm* ltm = localtime(&now);  
+    // print various components of tm structure.  
+  //  cout<< 1900 + ltm->tm_year << endl; // print the year  
+  //  cout << 1 + ltm->tm_mon << endl; // print month number  
+  //  cout<< ltm->tm_mday << endl; // print the day  
+    // Print time in hour:minute:second  
+   // cout << "Time: " << 5 + ltm->tm_hour << ":";  
+   // cout << 30 + ltm->tm_min << ":";  
+   // cout << ltm->tm_sec << endl;  
+    
+//}
  void menu() 
 {
 	system("cls");
@@ -132,10 +146,10 @@ cin>>type;
 	switch(type)
 	{
 		case 1:
-			onfile<<"Commercial"<<endl;
+			onfile<<"Commercial"<<",";
 		break;
 			case 2:
-		onfile<<"Home"<<endl;break;	
+		onfile<<"Home"<<",";break;	
 		}
 		cout<<" Registered sucessful "<<endl;
 		}
@@ -143,63 +157,49 @@ cin>>type;
 			exit(0);
 			cout<<" Not registered. try again"<<endl;
 		}
+		 time_t now = time(0); // get current date and time   
+    tm* ltm = localtime(&now);
+	  onfile<< 1900 + ltm->tm_year << ","; // print the year  
+    onfile<< 1 + ltm->tm_mon <<","; // print month number  
+    onfile<< ltm->tm_mday << endl;  
 	onfile.close();
 }
-
-	
-
-
 void login()
 {
 	system("cls");
 	string consumername,password;
 	string consumer;
-   
-
 	cout<<"\n\n\n\n\n\n\n   ";
 	cout<<setw(60);
 	 cout<<setw(100)<<"----------------------------------------------------"<<endl<<endl;
     cout<<setw(100)<<"                  Welcome to Login Page             "<<endl;
     cout<<setw(100)<<"\t   ----------------------------------------------------"<<endl<<endl;
 		cout<<setw(60);
-
 	cout<<setw(60)<<" Enter consumer No: ";
 	cin>>consumerno;
 	ifstream infile;
 	string line ="";
-	
 	infile.open("huzaifa.csv" ,ios_base::app);
 	int i=0;
-	
-     
 	while(getline(infile, line)){
 		stringstream word(line);
-			
 				while(getline(word,data[i],',')){
-             
 			 i++;
 			 }
-			 
 //		    cout<<i;
-		    
 //			getline(word, consumername,',');
 //			getline(word,password, ',');
 //			getline(word,consumer, ',');
-		
-		  
 		if(consumerno == data[2]){
 			cout<<"\n\n  -------------------------LOGIN successful--------------------------------";
 			login_status=1;
-				
 			break;
 		}	
 	}
     string reading[5];
     int j=0;
-    
     stringstream word1(data[6]);					// stringstream is used to extract numeric values fron string
 	while(getline(word1,reading[j],'-')){
-	
 			 j++;
 			 }
 	cout<<data[0]<<endl;
@@ -213,8 +213,6 @@ void login()
 	cout<<reading[1]<<endl;
 	cout<<reading[2]<<endl;
 	cout<<reading[3]<<endl;
-
-	
 	if(login_status==0){
 	cout<<"\n Invalid username or password \n";
 	}
@@ -234,13 +232,9 @@ void login()
  	    case 0:
  	    	cout<<" Closing-------------"<<endl;
  	    	sleep(2);
- 	    
- 	    	
  	    	 _exit();
-    
  	    	break;
  		case 1:
- 			
  			Register();
  			break;
  		case 2:
@@ -262,10 +256,8 @@ void in(){
 			while(getline(infile, line))
 	{
 		stringstream word(line);
-			
 			getline(word,pname, ',');
 			getline(word,fpass, ',');
-			
 	}
 			infile.close();
 			cout<<" Enter your remember password: ";
@@ -292,7 +284,6 @@ void out(){
 				while(getline(infile, line))
 	{
 		stringstream word(line);
-			
 			getline(word,pname, ',');
 			getline(word,fpass, ',');
 	}
@@ -300,7 +291,6 @@ void out(){
 			cout<<" Enter your remember username: ";
 			cin.ignore();
 			getline(cin,Name);
-			
 				if(Name==pname)
 			{
 			cout<<"\nWelcome Your Account is Found\n"<<"your Password is: "<<fpass<<endl;}
@@ -393,9 +383,6 @@ void out(){
 	 cout<<mmbtu<<endl;
  	cout<<Rs<<endl;
  		cout<<totalbill<<endl;
- 	
- 	
- 	
  	ofstream onfile;
  	onfile.open("huzaifa.csv",ios_base::app);
 
@@ -404,18 +391,8 @@ void out(){
 //	onfile<<preading<<",";
 //	onfile<<creading<<",";
 //	onfile<<rate<<endl;
-	
- 
-
-   
-   
 	cout<<" BILL PAYED ";
-	
- 	
- 	
  }
-
- 
 int main()
 {
 	 ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
@@ -425,19 +402,9 @@ int main()
 		cas();
 //	Register();
 //	login();
-//	chek();
-
-
-
-	
+//	chek();	
 }
 
-//int i=0;
-//while(getline(word,data[i],',')){
-	
-
-//i++;
-//}
 
 
 
