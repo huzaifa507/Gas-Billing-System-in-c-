@@ -7,9 +7,17 @@
 #include<conio.h>
 #include <cstdlib>
 #include<sstream>
+
 using namespace std;
  void forget();
  int main();
+ void paybill();
+ void position();
+void on();
+ int login_status=0;
+ string name;
+ 	 string consumerno;
+ 	   string data[30];
 
 void welcome()
 {
@@ -82,22 +90,29 @@ void welcome()
 }
 void Register()
 {
+	system("cls");
 	cout<<"\n\n\n\n\n\n\n   ";
     cout<<setw(105)<<"----------------------------------------------------------\n";
-	cout<<setw(100)<<"This Form Is Used To Register Connection "<<endl;
+	cout<<setw(100)<<"    Online Registration Portal "<<endl;
 	cout<<setw(108)<<"----------------------------------------------------------\n";
-	string consumerno,consumername,password,cnic,email;
+	string consumername,password,cnic,email;
+	int consumerno;
 	int type;
+	string adress;
 	ofstream onfile;
 	onfile.open("huzaifa.csv", std::ios_base::app);
 	cout<<" Consumer Name. ";
 	cin.ignore();
 	getline(cin,consumername);
+		cout<<" Consumer No. ";
+	cin>>consumerno;
+	cout<<" Adress: ";
+	cin.ignore();
+	getline(cin,adress);
     cout<<" Enter Email ID ";
     cin.ignore();
     getline(cin,email);
-	cout<<" Consumer No. ";
-	cin>>consumerno;
+
 	cout<<" Set Password: ";
 	cin>>password;
 	cout<<" CNIC No. ";
@@ -108,8 +123,9 @@ void Register()
 	cout<<" Enter type: ";
 		onfile<<consumername<<",";
 	onfile<<password<<",";
-	onfile<<email<<",";
 	onfile<<consumerno<<",";
+		onfile<<adress<<",";
+	onfile<<email<<",";
 	onfile<<cnic<<",";
 cin>>type;
    if(type==1 || type==2){
@@ -129,41 +145,81 @@ cin>>type;
 		}
 	onfile.close();
 }
+
+	
+
+
 void login()
 {
 	system("cls");
-	string name,password,fname,fpassword;
-	
+	string consumername,password;
+	string consumer;
+   
+
 	cout<<"\n\n\n\n\n\n\n   ";
 	cout<<setw(60);
 	 cout<<setw(100)<<"----------------------------------------------------"<<endl<<endl;
     cout<<setw(100)<<"                  Welcome to Login Page             "<<endl;
     cout<<setw(100)<<"\t   ----------------------------------------------------"<<endl<<endl;
 		cout<<setw(60);
-	cout<<" Enter Name: ";
-	cin.ignore();
-	getline(cin,name);
-	cout<<setw(60)<<" Enter Password: ";
-	cin>>password;
+
+	cout<<setw(60)<<" Enter consumer No: ";
+	cin>>consumerno;
 	ifstream infile;
 	string line ="";
+	
 	infile.open("huzaifa.csv" ,ios_base::app);
-	while(getline(infile, line))
-	{
+	int i=0;
+	
+     
+	while(getline(infile, line)){
 		stringstream word(line);
 			
-			getline(word,fname, ',');
-			getline(word,fpassword, ',');
+				while(getline(word,data[i],',')){
+             
+			 i++;
+			 }
+			 
+//		    cout<<i;
+		    
+//			getline(word, consumername,',');
+//			getline(word,password, ',');
+//			getline(word,consumer, ',');
+		
+		  
+		if(consumerno == data[2]){
+			cout<<"\n\n  -------------------------LOGIN successful--------------------------------";
+			login_status=1;
+				
+			break;
+		}	
 	}
-	if(fname==name && fpassword==password)
-	{
-		cout<<"\n\n  -------------------------LOGIN successful--------------------------------";
-	}	
-	else{ 
+    string reading[5];
+    int j=0;
+    
+    stringstream word1(data[6]);					// stringstream is used to extract numeric values fron string
+	while(getline(word1,reading[j],'-')){
+	
+			 j++;
+			 }
+	cout<<data[0]<<endl;
+	cout<<data[1]<<endl;
+	cout<<data[2]<<endl;
+	cout<<data[3]<<endl;
+	cout<<data[4]<<endl;
+	cout<<data[5]<<endl;
+//	cout<<data[6]<<endl;
+	cout<<reading[0]<<endl;
+	cout<<reading[1]<<endl;
+	cout<<reading[2]<<endl;
+	cout<<reading[3]<<endl;
+
+	
+	if(login_status==0){
 	cout<<"\n Invalid username or password \n";
 	}
-	}
-	void ex()
+}
+	void _exit()
 	{
 		HWND consoleWindow = GetConsoleWindow();
     PostMessage(consoleWindow, WM_CLOSE, 0, 0);
@@ -178,12 +234,13 @@ void login()
  	    case 0:
  	    	cout<<" Closing-------------"<<endl;
  	    	sleep(2);
+ 	    
  	    	
- 	    	 ex();
+ 	    	 _exit();
     
  	    	break;
  		case 1:
- 			system("cls");
+ 			
  			Register();
  			break;
  		case 2:
@@ -192,6 +249,9 @@ void login()
 		case 3:
 			forget();
 		break;
+		case 4:
+			paybill();
+			break;
  		 }
 		  }
 void in(){
@@ -205,6 +265,7 @@ void in(){
 			
 			getline(word,pname, ',');
 			getline(word,fpass, ',');
+			
 	}
 			infile.close();
 			cout<<" Enter your remember password: ";
@@ -279,18 +340,104 @@ void out(){
 		}
 		
  }
+ void paybill()
+ {
+ 	system("cls");
+ 	string name;
+	 int preading,creading,cnic,GCV=1041,difference;
+	 double hm3,mmbtu;
+	 int Rs, meterRent=40 ,GST = 900;
+	 int totalbill;
+ 	cout<<" Enter Name: ";
+ 	cin.ignore();
+ 	getline(cin,name);
+ 	cout<<" Enter CNIC: ";
+ 	cin>>cnic;
+ 	cout<<" Previous Reading: ";
+ 	cin>>preading;
+ 	cout<<" Current reading: ";
+ 	cin>>creading;
+ 	if(preading > creading)
+ 	{
+ 		cout<<" Please enter correct reading "<<endl;
+ 	 exit(1);
+	 }
+ 	difference=creading-preading;
+ 	hm3=difference/100000.0000;
+ 	mmbtu= (hm3*GCV)/281.7385;
+ 	if(mmbtu< 0.25){
+ 		Rs=300;
+	 }
+   else	if(mmbtu< 0.60){
+ 		Rs=600;
+	 }
+ 	 else	if(mmbtu< 1){
+ 		Rs=1000;
+	 }
+	  else	if(mmbtu< 1.5){
+ 		Rs=1200;
+	 }
+	  else	if(mmbtu< 2){
+ 		Rs=1600;
+	 }
+ 	 else	if(mmbtu< 3){
+ 		Rs=3000;
+	 }
+	  else	if(mmbtu< 4){
+ 		Rs=3500;
+	 }
+ 	 else	if(mmbtu> 4){
+ 		Rs=4000;
+	 }
+	totalbill= Rs+meterRent+GST;
+	 cout<<mmbtu<<endl;
+ 	cout<<Rs<<endl;
+ 		cout<<totalbill<<endl;
+ 	
+ 	
+ 	
+ 	ofstream onfile;
+ 	onfile.open("huzaifa.csv",ios_base::app);
+
+ //	onfile<<name<<",";
+//	onfile<<cnic<<",";
+//	onfile<<preading<<",";
+//	onfile<<creading<<",";
+//	onfile<<rate<<endl;
+	
+ 
+
+   
+   
+	cout<<" BILL PAYED ";
+	
+ 	
+ 	
+ }
+
  
 int main()
 {
 	 ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
-	//welcome();
+//	welcome();
 //	system("cls");
 	menu();
+		cas();
 //	Register();
 //	login();
-	
+//	chek();
 
-	cas();
+
+
 	
 }
+
+//int i=0;
+//while(getline(word,data[i],',')){
+	
+
+//i++;
+//}
+
+
 
