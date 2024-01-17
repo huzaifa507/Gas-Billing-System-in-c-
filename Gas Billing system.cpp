@@ -12,7 +12,8 @@ using namespace std;
  int main();
  void paybill();
  void position();
-void on();
+ void _exit();
+ void on();
  int login_status=0;
  int check=0;
  string name;
@@ -84,30 +85,40 @@ void Register()
 	cout<<setw(100)<<"    Online Registration Portal "<<endl;
 	cout<<setw(108)<<"----------------------------------------------------------\n";
 	string consumername,password,cnic,email;
-	int consumerno;
+	string consumerno;
 	int type;
 	string adress;
 	ofstream onfile;
-	onfile.open("huzaifa.csv", std::ios_base::app);  
-	cout<<" Consumer Name. ";
+	onfile.open("huzaifa.csv", std::ios_base::app); 
+	 cout<<"\n\n";
+	cout<<setw(85)<<" Consumer Name. ";
+	
 	cin.ignore();
 	getline(cin,consumername);
-		cout<<" Consumer No. ";
-	cin>>consumerno;
-	cout<<" Adress: ";
+	cout<<"\n";
+		cout<<setw(83)<<" Consumer No. ";
+	cin.ignore();
+	getline(cin,consumerno);
+		cout<<"\n";
+	cout<<setw(78)<<" Adress: ";
 	cin.ignore();
 	getline(cin,adress);
-    cout<<" Enter Email ID ";
+		cout<<"\n";
+    cout<<setw(85)<<" Enter Email ID ";
     cin.ignore();
     getline(cin,email);
-	cout<<" Set Password: ";
+    	cout<<"\n";
+	cout<<setw(84)<<" Set Password: ";
 	cin>>password;
-	cout<<" CNIC No. ";
+		cout<<"\n";
+	cout<<setw(79)<<" CNIC No. ";
 	cin>>cnic;
-     cout<<"\n  Connection Type.."<<endl;
-	cout<<" 1: Commercial "<<endl;
-	cout<<" 2: Home "<<endl;
-	cout<<" Enter type: ";
+		cout<<"\n";
+     cout<<setw(88)<<"  Connection Type.."<<endl;
+	cout<<setw(85)<<" 1: Commercial "<<endl;
+	cout<<setw(79)<<" 2: Home "<<endl;
+		cout<<"\n";
+	cout<<setw(83)<<" Enter type: ";
 		onfile<<consumername<<",";
 	onfile<<password<<",";
 	onfile<<consumerno<<",";
@@ -121,14 +132,31 @@ cin>>type;
 		case 1:
 			onfile<<"Commercial"<<",";
 		break;
-			case 2:
+			case 2:;
 		onfile<<"Home"<<",";break;	
 		}
-		cout<<" Registered sucessful "<<endl;
+		cout<<setw(91)<<"--------------- Registered sucessful------------------ "<<endl;
 		}
 		else{
-			exit(0);
-			cout<<" Not registered. try again"<<endl;
+			int in;
+			cout<<"\n\n";
+			cout<<setw(92)<<" Sorry Not registered. try again "<<endl;
+			cout<<"\n";
+			cout<<setw(92)<<" Enter 0 for Register "<<endl;
+			cout<<setw(88)<<" Enter 1 for exit "<<endl;
+			cout<<"\n";
+			cout<<setw(70)<<"=>";
+			cin>>in;
+			switch(in)
+			{
+				case 0:
+				Register();
+				break;
+				case 1:
+				_exit();
+				break;
+			}
+			
 		}
 		 time_t now = time(0); // get current date and time   
     tm* ltm = localtime(&now);
@@ -177,28 +205,40 @@ void login()
 		if(consumerno == data[2]){
 		cout<<"\n\n"<<setw(115)<<"  -------------------------LOGIN successful--------------------------------\n";
 		cout<<"\n\n";
+		sleep(2);
+		system("cls");
+		cout<<"\n\n\n";
 		cout<<setw(106)<<"----------------------------------------------------------\n";
     	cout<<setw(85)<<" |  Details  |"<<endl;
      	cout<<setw(108)<<"----------------------------------------------------------\n";
-     	
+     	cout<<setw(70)<<" Name: "<<data[0]<<endl<<endl<<endl;       // consumer name
+	cout<<setw(73)<<" Address: "<<data[3]<<endl<<endl<<endl;
+	cout<<setw(81)<<" Consumer`s CNIC: "<<data[5]<<endl<<endl<<endl;
 		login_status=1;
-		}
-
-
-    string reading[10];
+		 string reading[10];
   
  // 	if(i>7){
 	  
     stringstream word1(data[i-1]);
-		int j=0;					// stringstream is used to extract numeric values from string
+		int j=0;		
+				// stringstream is used to extract numeric values from string
 		while(getline(word1,reading[j],'-')){
 			 j++;
 			 }
-//	}
-	cout<<setw(70)<<" Name: "<<data[0]<<endl;       // consumer name
-	cout<<setw(73)<<" Address: "<<data[3]<<endl;
-	cout<<setw(81)<<" Consumer`s CNIC: "<<data[5]<<endl;
-	cout<<data[i-1];
+			 cout<<setw(90)<<" Bill paid of Last Month: "<<reading[1]<<endl<<endl<<endl;
+			 stringstream word2(data[i-2]);
+			 	int k=0;
+			 	while(getline(word2,reading[k],'-')){
+			 k++;
+			 }
+		cout<<setw(84)<<" Reading Difference: "<<setw(2)<<reading[0]<<endl<<"\n\n";
+		cout<<setw(72)<<" MMBTU = "<<reading[1]<<endl<<"\n\n";
+		cout<<setw(82)<<" Total Bill paid = "<<reading[2]<<" Rs/-\n\n"<<endl;
+	}
+
+   
+	
+	
 
 
 	// Total bill paid
@@ -207,20 +247,24 @@ void login()
 	cout<<"\n Invalid username or password \n";
 	//	cout<<data[2];
 	}
-	char pay;
-	cout<<setw(100)<<" Enter p or P for PayBill \n";
-
+	int pay;
+	cout<<setw(50)<<" Enter 0 for PayBill \n";
+    cout<<setw(48)<<" Enter 1 for Exit \n\n";
+    cout<<setw(31)<<"=>";
 	cin>>pay;
 	switch(pay)
 	{
-		case 'p':
-		case 'P':
-		paybill();					
+		case 0:
+		paybill();		
+		case 1:
+		_exit();			
 	}
 }
-
 	void _exit()
-	{
+	{   sleep(1);
+			cout<<"\n\n";
+	cout<<setw(90)<<" Closing-------------"<<endl;
+ 	    	sleep(2);
 		HWND consoleWindow = GetConsoleWindow();
     PostMessage(consoleWindow, WM_CLOSE, 0, 0);
 	}
@@ -232,8 +276,7 @@ void login()
  	switch(ch)
  	{ 
  	    case 0:
- 	    	cout<<" Closing-------------"<<endl;
- 	    	sleep(2);
+ 	    	
  	    	 _exit();
  	    	break;
  		case 1:
@@ -323,11 +366,23 @@ void login()
  	ofstream onfile;
  	onfile.open("huzaifa.csv",ios_base::app);
  	
+	
+	onfile<<data[0]<<",";
+	onfile<<data[1]<<",";
+	onfile<<data[2]<<",";
+	onfile<<data[3]<<",";
+	onfile<<data[4]<<",";
 	onfile<<cnic<<",";
-	onfile<<preading<<"-";
-	onfile<<creading<<"-";
+     onfile<<difference<<"-";
 	onfile<<mmbtu<<"-";
-	onfile<<totalbill<<endl;
+	onfile<<totalbill<<",";
+	time_t now = time(0); // get current date and time   
+    tm* ltm = localtime(&now);
+	  onfile<< 1900 + ltm->tm_year << "-"; // print the year  
+    onfile<< 1 + ltm->tm_mon <<"-"; // print month number  
+    onfile<< ltm->tm_mday << endl;  
+	
+	
 	cout<<" BILL PAYED ";
 	cout<<" Press l or L to show details: ";
 	char ch;
