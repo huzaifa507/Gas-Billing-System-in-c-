@@ -23,6 +23,8 @@ using namespace std;
  	 string consumerno;
  	   string data[30];
  	   string temp_data[30];
+ 	   string reading[10];
+ 	   	
 void welcome()
 {
 	 cout<<"\n\n";
@@ -212,7 +214,7 @@ void login()
      	cout<<setw(70)<<" Name: "<<data[0]<<endl<<endl<<endl;       // consumer name
 		cout<<setw(73)<<" Address: "<<data[3]<<endl<<endl<<endl;
 		cout<<setw(81)<<" Consumer`s CNIC: "<<data[5]<<endl<<endl<<endl;
-		 string reading[10];
+		 
     stringstream word1(data[i-1]);
 		int j=0;		
 				// stringstream is used to extract numeric values from string
@@ -254,7 +256,7 @@ void login()
 	    
 		cout<<setw(104)<<"----------------------------------------------------\n";
 		
-		if(i>8){
+		if(i>=7){
 		cout<<i<<endl;
 		cout<<setw(82)<<" Previous reading: "<<setw(2)<<reading[0]<<"\n\n\n";
 		cout<<setw(81)<<" Current reading: "<<setw(2)<<reading[1]<<"\n\n\n";
@@ -263,18 +265,8 @@ void login()
 		cout<<setw(71)<<" MMBTU: "<<reading[4]<<"\n\n\n";
 		cout<<setw(83)<<" Meter rent: 40 Rs/-"<<"\n\n\n";
 		cout<<setw(78)<<" GST: 900 Rs/- "<<"\n\n\n";
-		cout<<setw(82)<<" Total Bill paid = "<<reading[5]<<" Rs/-\n\n\n";
-		
-		}else{
-		cout<<setw(81)<<" Current reading: "<<setw(2)<<"0"<<"\n\n\n";
-		cout<<setw(81)<<" Bill will be updated by the end of this month. "<<setw(2)<<"\n\n\n";		
-		}
-	}
-	if(login_status==0){
-	cout<<"\n Invalid username or password \n";
-
-	}
-	int pay;
+		cout<<setw(82)<<" Total Bill  = "<<reading[5]<<" Rs/-\n\n\n";
+		int pay;
 	cout<<setw(50)<<" Enter 1 for PayBill \n";
     cout<<setw(48)<<" Enter 0 for Exit \n\n";
     cout<<setw(31)<<"=>";
@@ -288,6 +280,18 @@ void login()
 		_exit();
 		break;			
 	}
+		
+		}else{
+		cout<<setw(81)<<" Current reading: "<<setw(2)<<"0"<<"\n\n\n";
+		cout<<setw(81)<<" Bill will be updated by the end of this month. "<<setw(2)<<"\n\n\n";	
+	
+		}
+	}
+	if(login_status==0){
+	cout<<"\n Invalid username or password \n";
+
+	}
+	
 }
 	void _exit()
 	{   	
@@ -328,31 +332,42 @@ void date()
  {
  	system("cls");
  	string cnic;
-	 int preading,creading,GCV=1041,difference;
+	 float creading,preading,GCV=1041.000000,difference;
 	 float hm3,mmbtu;
 	 int consumed_price, meterRent=40 ,GST = 900;
 	 int totalbill;
+	 int i=0;
+	 	ifstream infile;
+	string line ="";
+	infile.open("huzaifa.csv" ,ios_base::app);
+	 	string temp_data[30];
+	while(getline(infile, line)){
+		stringstream word(line);
+		i=0;
+		while(getline(word,temp_data[i],',')){
+				 i++;
+			}
+		if(consumerno == temp_data[2]){
+			for(int k=0;k<30;k++)
+	        {
+	             data[k]=temp_data[k];
+	        }
+		}
+	}
+	  stringstream word1(data[i-1]);
+		int j=0;		
+		
+				// stringstream is used to extract numeric values from string
+		while(getline(word1,reading[j],'-')){
+			 j++;
+		}
+		reading[0]=preading;
+		reading[1]=creading;
+		reading[2]=difference;
      	cout<<" Enter CNIC: ";
  	cin>>cnic;	 
- 	cout<<" Previous Reading: ";
- 	cin>>preading;
- 	cout<<" Current reading: ";
- 	cin>>creading;
- 	if(preading > creading)
- 	{
- 		cout<<" Please enter correct reading "<<endl;
- 	 char again;
-	cout<<" Enter G for again:  ";
-	cin>>again;
-	switch(again)
-	{
-		case 'g':
-		case 'G':
-		paybill();
-		break;
-	}
-	 }
-	else{
+	 
+	
  	difference=creading-preading;
  	
  	hm3=difference/100000;
@@ -383,8 +398,7 @@ void date()
 	 }
 	totalbill= consumed_price+meterRent+GST;
  	cout<<setw(80)<<" Total Bill is "<<totalbill<<" Rs/- "<<endl;
- 	
-	 ofstream onfile;
+	ofstream onfile;
  	onfile.open("huzaifa.csv",ios_base::app);
 	onfile<<data[0]<<",";
 	onfile<<data[1]<<",";
@@ -406,7 +420,6 @@ void date()
     onfile<< ltm->tm_mday << endl;  
 	cout<<setw(80)<<" BILL PAYED ";
 	
- 	}
 }
 int main()
 {
