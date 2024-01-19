@@ -1,4 +1,4 @@
-# Gas-Billing-System-in-c-
+# Gas-Billing-System
 This C++ project stores records using file handling and has two interfaces: one for consumers to make bill payments, and another for meter readers to input meter readings.
 # Screenshots:
 Registration portal for consumer
