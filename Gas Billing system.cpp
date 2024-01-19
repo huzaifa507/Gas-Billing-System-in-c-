@@ -246,7 +246,6 @@ void login()
 			 
 		cout<<setw(104)<<"----------------------------------------------------\n";
 		if(i>8){
-		cout<<i<<endl;
 		cout<<setw(82)<<" Previous reading: "<<setw(2)<<reading[0]<<"\n\n\n";
 		cout<<setw(81)<<" Current reading: "<<setw(2)<<reading[1]<<"\n\n\n";
 		cout<<setw(84)<<" Reading difference: "<<setw(2)<<reading[2]<<"\n\n\n";
@@ -262,7 +261,6 @@ void login()
 	cin>>pay;
 	switch(pay)
 	{
-
 		case 1:
 		paybill();	
 		break;	
@@ -405,6 +403,7 @@ void date()
 	  onfile<< 1900 + ltm->tm_year << "-"; // print the year  
     onfile<< 1 + ltm->tm_mon <<"-"; // print month number  
     onfile<< ltm->tm_mday << endl;  
+    onfile.close();
 	cout<<setw(100)<<" ----------------BILL PAYED-----------------\n ";
 	cout<<setw(80)<<" Enter 0 for exit:\n ";
 	int _ext;
