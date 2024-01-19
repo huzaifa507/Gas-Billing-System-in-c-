@@ -1,35 +1,28 @@
 #include <iostream>
-#include<iomanip>
-#include<windows.h>          
-#include<unistd.h>
-#include<fstream>
-#include<string>
-#include<conio.h>
-#include <cstdlib>
-#include<sstream>         
-#include <ctime>  
+#include<iomanip>			//for setwidth functions
+#include<windows.h>          //for maximizing and exiting the console 			
+#include<fstream>			// file handilng 
+#include<sstream>         // for datatype stringstream that extract numeric values 
+#include <ctime>  			//  get date from pc
 using namespace std;
  int main();
  void paybill();
- void position();
  void log_exit();
  void login();
  void date();
  void _exit();
- void on();
+ // globals------------------------------
  int login_status=0;
- int check=0;
  string name;
- 	 string consumerno;
- 	   string data[30];
- 	   string temp_data[30];
- 	   string reading[10];
+string data[30];
+string temp_data[30];
+string reading[10];
  	   	
 void welcome()
 {
 	 cout<<"\n\n";
-	system("Color F0");
-	char a=186 ,b=205, c=200, d=201, e=187, f= 188,g=185, h=223;
+	system("Color F0");               // changing console color 
+	char a=186 ,b=205, c=200, d=201, e=187, f= 188,g=185, h=223;			// Ascii code
 	cout<<"\n\n"<<setw(10)<<d<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<e<<endl;
 	cout<<setw(10)<<a<<setw(50)<<a<<endl<<setw(10)<<a<<setw(2)<<d<<b<<b<<b<<b<<b<<b<<b<<b<<e<<setw(10)<<d<<b<<b<<b<<b<<b<<b<<b<<b<<e<<setw(10)<<d<<b<<b<<b<<b<<b<<b<<b<<b<<setw(2)<<a<<endl;
 	cout<<setw(10)<<a<<setw(2)<<a<<setw(9)<<a<<setw(10)<<a<<setw(9)<<a<<setw(10)<<a<<setw(10)<<a<<endl;
@@ -52,7 +45,7 @@ void welcome()
 	cout<<setw(40)<<a<<setw(38)<<a<<endl;
 	cout<<setw(40)<<a<<" "<<" Submit to: Sir Rehan Tariq "<<setw(9)<<a<<endl;   
 	cout<<setw(40)<<c<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<b<<f<<endl;
-	sleep(3);
+	Sleep(3000);
 }
  void log_exit(){
  	int ch;
@@ -92,15 +85,14 @@ void Register()
 	cout<<setw(95)<<"    Online Registration Portal "<<endl;
 	cout<<setw(108)<<"----------------------------------------------------------\n";
 	string consumername,password,cnic,email;
-	unsigned int consumerno;
+	string  consumerno;		 
 	int type;
 	string adress;
 	ofstream onfile;
-	onfile.open("huzaifa.csv", std::ios_base::app); 
+	onfile.open("huzaifa.csv", std::ios_base::app); 			// ios_base:: app for saving data of multi users means append
 	cout<<"\n\n";
 	cout<<setw(85)<<" Consumer Name. ";
-	 
-	cin.ignore();
+	cin.ignore();      // clear character from input buffer 
 	getline(cin,consumername);
 	cout<<"\n";
 		cout<<setw(83)<<" Consumer No. ";
@@ -111,8 +103,7 @@ void Register()
 	getline(cin,adress);
 		cout<<"\n";
     cout<<setw(85)<<" Enter Email ID ";
-    cin.ignore();
-    getline(cin,email);
+     cin>>email;
     	cout<<"\n";
 	cout<<setw(84)<<" Set Password: ";
 	cin>>password;
@@ -176,6 +167,7 @@ void login()
 	system("cls");
 	string consumername,password;
 	string consumer;
+	string consumerno;
 	cout<<"\n\n\n\n\n\n\n   ";
 	cout<<setw(60);
 	 cout<<setw(102)<<"----------------------------------------------------"<<endl<<endl;
@@ -221,42 +213,39 @@ void login()
 		while(getline(word1,reading[j],'-')){
 			 j++;
 		}
-		
 			if(reading[1] == "1"){
-				cout<<setw(75)<<" Last Paid: "<<" Jan-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Jan-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "2"){
-				cout<<setw(75)<<" Last Paid: "<<" Feb-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Feb-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "3"){
-				cout<<setw(75)<<" Last Paid: "<<" March-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" March-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "4"){
-				cout<<setw(75)<<" Last Paid: "<<" April-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" April-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "5"){
-				cout<<setw(75)<<" Last Paid: "<<" May-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" May-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "6"){
-				cout<<setw(75)<<" Last Paid: "<<" June-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" June-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "7"){
-				cout<<setw(75)<<" Last Paid: "<<" July-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" July-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "8"){
-				cout<<setw(75)<<" Last Paid: "<<" Aug-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Aug-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "9"){
-				cout<<setw(75)<<" Last Paid: "<<" Sept-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Sept-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "10"){
-				cout<<setw(75)<<" Last Paid: "<<" Oct-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Oct-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "11"){
-				cout<<setw(75)<<" Last Paid: "<<" Nov-"<<reading[0]<<endl<<endl<<endl;}
+				cout<<setw(75)<<" Last Paid: "<<" Nov-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
 			else	 if(reading[1] == "12"){
-				cout<<setw(75)<<" Last Paid: "<<" Dec-"<<reading[0]<<endl<<endl<<endl;}
-				 
-				   
+				cout<<setw(75)<<" Last Paid: "<<" Dec-"<<reading[0]<<"-"<<reading[2]<<endl<<endl<<endl;}
+		
 			 stringstream word2(data[i-2]);
 			 	int k=0;
 			 	while(getline(word2,reading[k],'-')){
 			 k++;
 			 }
-	    
+			 
 		cout<<setw(104)<<"----------------------------------------------------\n";
-		
-		if(i>=7){
+		if(i>8){
 		cout<<i<<endl;
 		cout<<setw(82)<<" Previous reading: "<<setw(2)<<reading[0]<<"\n\n\n";
 		cout<<setw(81)<<" Current reading: "<<setw(2)<<reading[1]<<"\n\n\n";
@@ -273,6 +262,7 @@ void login()
 	cin>>pay;
 	switch(pay)
 	{
+
 		case 1:
 		paybill();	
 		break;	
@@ -283,19 +273,16 @@ void login()
 		
 		}else{
 		cout<<setw(81)<<" Current reading: "<<setw(2)<<"0"<<"\n\n\n";
-		cout<<setw(81)<<" Bill will be updated by the end of this month. "<<setw(2)<<"\n\n\n";	
-	
+		cout<<setw(104)<<" Bill will be updated by the end of this month. "<<setw(2)<<"\n\n\n";	
 		}
 	}
 	if(login_status==0){
-	cout<<"\n Invalid username or password \n";
-
+	cout<<setw(81)<<"\n Invalid username or password \n";
 	}
-	
 }
 	void _exit()
 	{   	
-		HWND consoleWindow = GetConsoleWindow();
+		HWND consoleWindow = GetConsoleWindow();          // closing console window 
     PostMessage(consoleWindow, WM_CLOSE, 0, 0);
 	}
  void _case()
@@ -332,7 +319,8 @@ void date()
  {
  	system("cls");
  	string cnic;
-	 float creading,preading,GCV=1041.000000,difference;
+ 	string consumerno;
+	 float creading,preading,GCV=1041.00,difference;
 	 float hm3,mmbtu;
 	 int consumed_price, meterRent=40 ,GST = 900;
 	 int totalbill;
@@ -364,13 +352,13 @@ void date()
 		reading[0]=preading;
 		reading[1]=creading;
 		reading[2]=difference;
-     	cout<<" Enter CNIC: ";
+		cout<<setw(108)<<"----------------------------------------------------------\n";
+    	cout<<setw(85)<<" |  Details  |"<<endl;
+     	cout<<setw(108)<<"----------------------------------------------------------\n";
+     	cout<<setw(85)<<" Enter CNIC: ";
  	cin>>cnic;	 
-	 
-	
  	difference=creading-preading;
- 	
- 	hm3=difference/100000;
+ 	hm3=difference/100000.00;
  	mmbtu= (hm3*GCV)/281.7385;
  	if(mmbtu< 0.25){
  		consumed_price=300;
@@ -397,7 +385,7 @@ void date()
  		consumed_price=4000;
 	 }
 	totalbill= consumed_price+meterRent+GST;
- 	cout<<setw(80)<<" Total Bill is "<<totalbill<<" Rs/- "<<endl;
+ 	cout<<setw(80)<<" Total Bill is "<<totalbill<<" Rs/-\n\n "<<endl;
 	ofstream onfile;
  	onfile.open("huzaifa.csv",ios_base::app);
 	onfile<<data[0]<<",";
@@ -412,21 +400,27 @@ void date()
      onfile<<consumed_price<<"-";
 	onfile<<mmbtu<<"-";
 	onfile<<totalbill<<",";
-
 	time_t now = time(0); // get current date and time   
     tm* ltm = localtime(&now);
 	  onfile<< 1900 + ltm->tm_year << "-"; // print the year  
     onfile<< 1 + ltm->tm_mon <<"-"; // print month number  
     onfile<< ltm->tm_mday << endl;  
-	cout<<setw(80)<<" BILL PAYED ";
-	
+	cout<<setw(100)<<" ----------------BILL PAYED-----------------\n ";
+	cout<<setw(80)<<" Enter 0 for exit:\n ";
+	int _ext;
+	cin>>_ext;
+	switch(_ext)
+	{
+		case 0:
+		_exit();
+	}
 }
 int main()
 {
-	 ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
-//	welcome();
+	 ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);	
+	welcome();
 	menu();
-		_case();
+	_case();
 }
 
 
